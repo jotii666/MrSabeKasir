@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tahunan_subreport4" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="683c3b30-5d8f-48c2-9f33-924fa6e8460c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+	 tanggal, jam, sum(nominal)
+FROM 
+	`datapenjualan` 
+WHERE 
+	month(`tanggal`) = 04 and year(`tanggal`) = year(CURRENT_DATE())]]>
+	</queryString>
+	<field name="tanggal" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sum(nominal)" class="java.math.BigDecimal"/>
+	<group name="sum(nominal)">
+		<groupExpression><![CDATA[$F{sum(nominal)}]]></groupExpression>
+	</group>
+	<group name="tanggal">
+		<groupExpression><![CDATA[$F{tanggal}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="0a1c8e4c-86a2-4746-a255-baf4bdb57b9e" x="26" y="4" width="337" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum(nominal)}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="de1c1686-39c0-48fe-ac79-d522d0b02041" x="3" y="4" width="23" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

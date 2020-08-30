@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bulanan_subreport6" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="de6e7630-1236-41f6-a96a-d88eaefbda7a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+	 tanggal, jam, sum(nominal)
+FROM 
+	`datapenjualan` 
+WHERE 
+	day (tanggal) = 06 and month(`tanggal`) = month(CURRENT_DATE()) and year(`tanggal`) = year(CURRENT_DATE())]]>
+	</queryString>
+	<field name="tanggal" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sum(nominal)" class="java.math.BigDecimal"/>
+	<group name="sum(nominal)">
+		<groupExpression><![CDATA[$F{sum(nominal)}]]></groupExpression>
+	</group>
+	<group name="tanggal">
+		<groupExpression><![CDATA[$F{tanggal}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="d289c6f9-bd4e-4185-9ecc-709238836952" x="296" y="6" width="258" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum(nominal)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="392ffeb7-df86-42f6-9f2a-3e210866f82d" x="9" y="6" width="148" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("06 MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8e0fd59f-4d03-45be-9139-28aac249cbd8" x="274" y="6" width="23" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

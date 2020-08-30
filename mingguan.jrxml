@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mingguan" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="49ab12f9-fb9c-4221-b3f2-513e00afded7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT 
+	 tanggal, jam, nominal
+FROM 
+	`datapenjualan` 
+WHERE 
+	week(tanggal) = week(CURRENT_DATE()) and month(`tanggal`) = month(CURRENT_DATE()) and year(`tanggal`) = year(CURRENT_DATE())]]>
+	</queryString>
+	<field name="tanggal" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jam" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nominal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{nominal}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7e31a439-ff86-4ecf-b5c3-7bc77fe599a2" x="294" y="44" width="206" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b05d137a-055d-4a62-9a01-c768dd048f91" x="44" y="8" width="461" height="36"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN MINGGUAN MRSABE PRINT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="2e27ee3c-cce0-4f33-923c-b38c324f54d1" x="0" y="3" width="371" height="20" backcolor="#CCFFCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="71175ba8-6ab0-4d95-b665-47c7fea8db66" x="3" y="-23" width="175" height="21" backcolor="#CCCCFF"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="54966e2b-64f4-4a97-b5f7-18c615cd697a" x="5" y="-21" width="173" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3bdf8e35-ef86-4763-9855-6268aced6b88" x="4" y="5" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TANGGAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eb354bf4-fc96-447b-ad17-b1b69b88b3ec" x="176" y="4" width="42" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b93dae76-846c-45ec-8747-641f27080734" x="291" y="5" width="73" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMINAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement uuid="34fd9c42-3cd8-46a4-ab06-e54caf9f6313" x="3" y="5" width="137" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MMMM yyyy", new java.util.Locale("id")).format($F{tanggal})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="580a0914-c5fd-4766-978a-b676e9afea3c" x="273" y="5" width="21" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+			<textField pattern="HH.mm">
+				<reportElement uuid="974bfd5a-4726-4444-8ab2-b88ca5634927" x="181" y="5" width="62" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{jam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="9ecd7866-7350-4192-b668-92efdcfec496" x="296" y="5" width="133" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nominal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="100" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="bb128747-29c4-42e1-8c93-7962a9b05b5a" x="1" y="44" width="553" height="20" backcolor="#CCFFCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="de4436f5-68be-4dd4-ba25-95b49dee959d" x="2" y="46" width="246" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PENJUALAN MINGGUAN ADALAH :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="15dc1f69-4c38-4729-bbb0-727e8e1cdcca" x="272" y="46" width="281" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0f044e24-ce09-4af8-bab0-642991c7b0e6" x="250" y="45" width="24" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tahunan" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bbaf3f3f-20e9-4053-8f40-df51cc764a33">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="177"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Z:\\mrsabe\\billing\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+	tanggal, jam, nominal
+FROM 
+	`datapenjualan` 
+WHERE 
+	year(`tanggal`) = year(CURRENT_DATE())]]>
+	</queryString>
+	<field name="tanggal" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jam" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nominal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{nominal}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b05d137a-055d-4a62-9a01-c768dd048f91" x="44" y="0" width="461" height="36"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAPORAN TAHUNAN MRSABE PRINT]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7e31a439-ff86-4ecf-b5c3-7bc77fe599a2" x="276" y="36" width="206" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="422f56c2-5d77-4bb0-b450-34d1d853ba66" x="0" y="15" width="131" height="20" backcolor="#CCCCFF"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="71650f0c-a740-403a-a6db-c60b29281dab" x="0" y="15" width="65" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TAHUN ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="54966e2b-64f4-4a97-b5f7-18c615cd697a" x="65" y="15" width="66" height="20" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="8aeb7ac8-4607-4f78-ad57-20c28c549096" x="0" y="4" width="352" height="27" backcolor="#CCFFCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d5822c85-f28d-4ea9-b127-37b3d198a34c" x="0" y="11" width="114" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TANGGAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5822c85-f28d-4ea9-b127-37b3d198a34c" x="133" y="11" width="63" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5822c85-f28d-4ea9-b127-37b3d198a34c" x="233" y="11" width="114" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMINAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement uuid="43a940b6-6a3e-4622-bf4e-6e5af217bb41" x="0" y="10" width="131" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MMMM yyyy", new java.util.Locale("id")).format($F{tanggal})]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement uuid="028421f0-5166-44ac-a892-e8905b2f845d" x="150" y="12" width="58" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{jam}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="c9b9586a-19e8-4403-94cb-5e466d1eeaf1" x="264" y="12" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nominal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e666ce55-ac3e-4eb7-b62e-c40fa811c5d3" x="245" y="12" width="19" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="495" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="3ead1d12-edfd-4e8c-addf-6d62d974e660" x="0" y="438" width="555" height="20" backcolor="#CCFFCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d04d4335-769a-4fd3-8144-36d8366cc642" x="3" y="439" width="242" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PENJUALAN TAHUNAN ADALAH :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6f309a54-6218-41f0-8c2f-27c87b7edfeb" x="256" y="439" width="21" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rp]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="3c65f13c-71e8-49b7-b392-3f8035bf8dec" x="280" y="439" width="276" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="8aeb7ac8-4607-4f78-ad57-20c28c549096" x="1" y="62" width="388" height="27" backcolor="#CCFFCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="d5822c85-f28d-4ea9-b127-37b3d198a34c" x="7" y="66" width="114" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BULAN]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="422f56c2-5d77-4bb0-b450-34d1d853ba66" x="3" y="38" width="175" height="20" backcolor="#CCCCFF"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="b13315ba-3e4d-4c34-b2ed-a764cd87ca04" x="3" y="39" width="175" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL PERBULAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d5822c85-f28d-4ea9-b127-37b3d198a34c" x="268" y="66" width="114" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMINAL]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="1" y="92" width="554" height="20" backcolor="#CCFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="1" y="117" width="554" height="20" backcolor="#FFFFCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="2" y="142" width="553" height="20" backcolor="#CCFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="1" y="167" width="554" height="20" backcolor="#FFFFCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="2" y="192" width="553" height="20" backcolor="#CCFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="1" y="217" width="554" height="20" backcolor="#FFFFCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="2" y="242" width="553" height="20" backcolor="#CCFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="2" y="267" width="554" height="20" backcolor="#FFFFCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="3" y="342" width="553" height="20" backcolor="#CCFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="3" y="292" width="553" height="20" backcolor="#CCFFFF"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="2" y="317" width="554" height="20" backcolor="#FFFFCC"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="cfdb949b-0e4f-49cd-96be-c015cade972e" x="2" y="367" width="554" height="20" backcolor="#FFFFCC"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="4" y="92" width="129" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JANUARI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="4" y="118" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FEBRUARI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="4" y="142" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MARET]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="4" y="169" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APRIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="4" y="194" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="3" y="218" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JUNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="2" y="243" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JULI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="2" y="267" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGUSTUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="2" y="293" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEPTEMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="3" y="317" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OKTOBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="3" y="343" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOVEMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8cfe156c-5831-4cf6-807e-1e531d25d2a9" x="1" y="367" width="127" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESEMBER]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="7f747c8e-1703-427d-aa11-130a18fdcea9" x="294" y="92" width="262" height="20"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="84d96c15-c26a-4e84-8fa6-31f0e7530a8d" x="293" y="118" width="262" height="19"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="8fccfcde-cceb-462e-91ff-6d8481898093" x="293" y="142" width="262" height="21"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport3.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="fc36ccab-91d5-46a0-a405-2223b678ae12" x="294" y="167" width="261" height="20"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport4.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="dd37595b-1ed4-4cb1-a4e4-fbdcaf92d7a1" x="294" y="192" width="262" height="20"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport5.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="a96bf25f-24ad-4beb-bbc6-f0311948bbbb" x="294" y="217" width="261" height="20"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport6.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="4170a177-40d2-4f95-a6ee-7bde4087abb1" x="295" y="241" width="260" height="19"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport7.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="656fb0cc-d75e-42f8-a05c-e6e8858ef81c" x="295" y="266" width="260" height="20"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport8.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="dd9f4c6f-d022-4fee-b30e-60ca1088c448" x="296" y="292" width="259" height="19"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport9.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="b1e8450c-b98d-4761-91ab-8cfe296f53e8" x="296" y="317" width="259" height="19"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport10.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="d86f9700-b6ae-43d1-9139-8d9e55787c45" x="297" y="343" width="259" height="20"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport11.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="e1c77334-eb7e-46e6-b14e-1e997dd4cf46" x="297" y="367" width="258" height="20"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tahunan_subreport12.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>
